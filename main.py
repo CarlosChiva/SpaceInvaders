@@ -1,4 +1,6 @@
 # This is a sample Python script.
+import random
+
 import pygame
 
 # from PIL import Image
@@ -19,13 +21,13 @@ enemyImg = pygame.image.load('naveEnemiga.png')
 # firstPositions
 playerX = 370
 playerY = 550
-enemyX = 370
-enemyY = 30
+enemyX = random.randint(0, 800)
+enemyY = random.randint(50, 150)
 # Change position
 player_changeX = 0
 player_changeY = 0
-enemy_changeY = 0
-enemy_cangeX = 0
+enemy_changeY = 10
+enemy_cangeX = 0.3
 
 
 def player(numX, numY):
@@ -33,7 +35,8 @@ def player(numX, numY):
 
 
 def enemy(numX, numY):
-    screen.blit(enemyImg, (numX,numY))
+    screen.blit(enemyImg, (numX, numY))
+
 
 
 running = True
@@ -47,15 +50,27 @@ while running:
                 player_changeX = -0.1
             if event.key == pygame.K_RIGHT:
                 player_changeX = 0.1
+        #            if event.key == pygame.K_SPACE:
+        # fire
         if event.type == pygame.KEYUP:
             player_changeX = 0
+
     if playerX <= 0:
         playerX = 0
     elif playerX >= 745:
         playerX = 745
-
     playerX += player_changeX
 
-    player(playerX + 0.5, playerY + 0.5)
-    enemy(enemyX,enemyY)
+    if enemyX <= 0:
+        enemy_cangeX = 0.3
+        enemyX = enemy_cangeX
+        enemyY += enemy_changeY
+    elif enemyX >= 750:
+        enemy_cangeX = -0.3
+        enemyX += enemy_cangeX
+        enemyY += enemy_changeY
+
+    enemyX += enemy_cangeX
+    player(playerX, playerY)
+    enemy(enemyX, enemyY)
     pygame.display.update()
