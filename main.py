@@ -1,22 +1,42 @@
 # This is a sample Python script.
+import random
+
 import pygame
-from PIL import Image
+
+# from PIL import Image
+# imagen = Image.open('nave-espacial.png')
+# imagen_redimensionada = imagen.resize((50,50))
+# imagen_redimensionada.save("naveJugador.png")
 
 pygame.init()
-#imagen = Image.open('nave-espacial.png')
-#imagen_redimensionada = imagen.resize((50,50))
-#imagen_redimensionada.save("naveJugador.png")
-screen = pygame.display.set_mode((800, 600))
+screen_X_size = 800
+screen_Y_size = 600
+screen = pygame.display.set_mode((screen_X_size, screen_Y_size))
 pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load('ba.jpg')
+icon = pygame.image.load('sape.jpg')
 pygame.display.set_icon(icon)
+
 playerImg = pygame.image.load('naveJugador.png')
-playerX = 100
-playerY = 400
+enemyImg = pygame.image.load('naveEnemiga.png')
+# firstPositions
+playerX = 370
+playerY = 550
+enemyX = random.randint(0, 800)
+enemyY = random.randint(50, 150)
+# Change position
+player_changeX = 0
+player_changeY = 0
+enemy_changeY = 10
+enemy_cangeX = 0.3
 
 
-def player():
-    screen.blit(playerImg, (playerX, playerY))
+def player(numX, numY):
+    screen.blit(playerImg, (numX, numY))
+
+
+def enemy(numX, numY):
+    screen.blit(enemyImg, (numX, numY))
+
 
 
 running = True
@@ -25,7 +45,32 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                player_changeX = -0.1
+            if event.key == pygame.K_RIGHT:
+                player_changeX = 0.1
+        #            if event.key == pygame.K_SPACE:
+        # fire
+        if event.type == pygame.KEYUP:
+            player_changeX = 0
 
-    player()
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= 745:
+        playerX = 745
+    playerX += player_changeX
+
+    if enemyX <= 0:
+        enemy_cangeX = 0.3
+        enemyX = enemy_cangeX
+        enemyY += enemy_changeY
+    elif enemyX >= 750:
+        enemy_cangeX = -0.3
+        enemyX += enemy_cangeX
+        enemyY += enemy_changeY
+
+    enemyX += enemy_cangeX
+    player(playerX, playerY)
+    enemy(enemyX, enemyY)
     pygame.display.update()
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
