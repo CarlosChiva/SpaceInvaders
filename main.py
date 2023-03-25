@@ -15,7 +15,7 @@ pygame.init()
 screen_X_size = 800
 screen_Y_size = 600
 screen = pygame.display.set_mode((screen_X_size, screen_Y_size))
-pygame.display.set_caption("Spac Invader")
+pygame.display.set_caption("Spac Inv")
 icon = pygame.image.load('sape.jpg')
 pygame.display.set_icon(icon)
 score = 0
