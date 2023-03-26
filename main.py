@@ -19,6 +19,7 @@ pygame.display.set_caption("Space Invaders")
 icon = pygame.image.load('sape.jpg')
 pygame.display.set_icon(icon)
 score = 0
+
 playerImg = pygame.image.load('naveJugador.png')
 enemyImg = pygame.image.load('naveEnemiga.png')
 background = pygame.image.load('background2.jpeg')
